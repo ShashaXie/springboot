@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shasha.springdemo.dao.TUserMapper" >
+
+    <resultMap id="BaseResultMap" type="com.shasha.springdemo.model.TUser" >
+        <id column="userId" property="userid" jdbcType="VARCHAR" />
+        <result column="username" property="username" jdbcType="VARCHAR" />
+        <result column="usersex" property="usersex" jdbcType="VARCHAR" />
+        <result column="useage" property="useage" jdbcType="INTEGER" />
+        <result column="address" property="address" jdbcType="VARCHAR" />
+        <result column="email" property="email" jdbcType="VARCHAR" />
+        <result column="phone" property="phone" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        userId, username, usersex, useage, address, email, phone
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="Base_Column_List" />
+        from t_user
+        where userId = #{userid,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from t_user
+        where userId = #{userid,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.shasha.springdemo.model.TUser" >
+        insert into t_user (userId, username, usersex, 
+            useage, address, email, 
+            phone)
+        values (#{userid,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{usersex,jdbcType=VARCHAR}, 
+            #{useage,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+            #{phone,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.shasha.springdemo.model.TUser" >
+        insert into t_user
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="userid != null" >
+                userId,
+            </if>
+            <if test="username != null" >
+                username,
+            </if>
+            <if test="usersex != null" >
+                usersex,
+            </if>
+            <if test="useage != null" >
+                useage,
+            </if>
+            <if test="address != null" >
+                address,
+            </if>
+            <if test="email != null" >
+                email,
+            </if>
+            <if test="phone != null" >
+                phone,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="userid != null" >
+                #{userid,jdbcType=VARCHAR},
+            </if>
+            <if test="username != null" >
+                #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="usersex != null" >
+                #{usersex,jdbcType=VARCHAR},
+            </if>
+            <if test="useage != null" >
+                #{useage,jdbcType=INTEGER},
+            </if>
+            <if test="address != null" >
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null" >
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null" >
+                #{phone,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.shasha.springdemo.model.TUser" >
+        update t_user
+        <set >
+            <if test="username != null" >
+                username = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="usersex != null" >
+                usersex = #{usersex,jdbcType=VARCHAR},
+            </if>
+            <if test="useage != null" >
+                useage = #{useage,jdbcType=INTEGER},
+            </if>
+            <if test="address != null" >
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null" >
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null" >
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where userId = #{userid,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.shasha.springdemo.model.TUser" >
+        update t_user
+        set username = #{username,jdbcType=VARCHAR},
+            usersex = #{usersex,jdbcType=VARCHAR},
+            useage = #{useage,jdbcType=INTEGER},
+            address = #{address,jdbcType=VARCHAR},
+            email = #{email,jdbcType=VARCHAR},
+            phone = #{phone,jdbcType=VARCHAR}
+        where userId = #{userid,jdbcType=VARCHAR}
+    </update>
+    <select id = "getUserInfo"  resultType="java.lang.String">
+        select username from t_user
+
+    </select>
+</mapper>
